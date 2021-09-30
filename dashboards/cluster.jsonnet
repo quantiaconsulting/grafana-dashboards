@@ -71,7 +71,7 @@ local clusterMemoryCommitment = graphPanel.new(
         # FIXME: This isn't the best metric here, evaluate what is.
         and on (pod) kube_pod_status_scheduled{condition='true'}
         # Ignore user and node placeholder pods
-        and on (pod) kube_pod_labels{label_component!~'user-placeholder|node-placeholder'}
+        and on (pod) kube_pod_labels{component!~'user-placeholder|node-placeholder'}
       ) by (label_cloud_google_com_gke_nodepool)
       /
       sum(
@@ -112,7 +112,7 @@ local clusterCPUCommitment = graphPanel.new(
         # FIXME: This isn't the best metric here, evaluate what is.
         and on (pod) kube_pod_status_scheduled{condition='true'}
         # Ignore user and node placeholder pods
-        and on (pod) kube_pod_labels{label_component!~'user-placeholder|node-placeholder'}
+        and on (pod) kube_pod_labels{component!~'user-placeholder|node-placeholder'}
       ) by (label_cloud_google_com_gke_nodepool)
       /
       sum(
@@ -148,7 +148,7 @@ local nodeCPUCommit = graphPanel.new(
         # FIXME: This isn't the best metric here, evaluate what is.
         and on (pod) kube_pod_status_scheduled{condition='true'}
         # Ignore user and node placeholder pods
-        and on (pod) kube_pod_labels{label_component!~'user-placeholder|node-placeholder'}
+        and on (pod) kube_pod_labels{component!~'user-placeholder|node-placeholder'}
       ) by (node)
       /
       sum(
@@ -181,7 +181,7 @@ local nodeMemoryCommit = graphPanel.new(
         # FIXME: This isn't the best metric here, evaluate what is.
         and on (pod) kube_pod_status_scheduled{condition='true'}
         # Ignore user and node placeholder pods
-        and on (pod) kube_pod_labels{label_component!~'user-placeholder|node-placeholder'}
+        and on (pod) kube_pod_labels{component!~'user-placeholder|node-placeholder'}
       ) by (node)
       /
       sum(

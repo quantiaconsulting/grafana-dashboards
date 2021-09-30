@@ -25,9 +25,9 @@ local monthlyActiveUsers = graphPanel.new(
         sum(
           min_over_time(
             kube_pod_labels{
-              label_app="jupyterhub",
-              label_component="singleuser-server",
-              label_hub_jupyter_org_username!~"(service|perf|hubtraf)-",
+              app="jupyterhub",
+              component="singleuser-server",
+              hub_jupyter_org_username!~"(service|perf|hubtraf)-",
             }[30d]
           )
         ) by (pod)
@@ -52,9 +52,9 @@ local dailyActiveUsers = graphPanel.new(
         sum(
           min_over_time(
             kube_pod_labels{
-              label_app="jupyterhub",
-              label_component="singleuser-server",
-              label_hub_jupyter_org_username!~"(service|perf|hubtraf)-",
+              app="jupyterhub",
+              component="singleuser-server",
+              hub_jupyter_org_username!~"(service|perf|hubtraf)-",
             }[1d]
           )
         ) by (pod)
@@ -78,9 +78,9 @@ local userDistribution = graphPanel.new(
       sum(
         min_over_time(
           kube_pod_labels{
-            label_app="jupyterhub",
-            label_component="singleuser-server",
-            label_hub_jupyter_org_username!~"(service|perf|hubtraf)-",
+            app="jupyterhub",
+            component="singleuser-server",
+            hub_jupyter_org_username!~"(service|perf|hubtraf)-",
           }[90d]
         )
       ) by (pod)
@@ -100,7 +100,7 @@ local currentRunningUsers = graphPanel.new(
     |||
       sum(
         kube_pod_status_phase{phase="Running"}
-        * on(pod, namespace) kube_pod_labels{label_app="jupyterhub", label_component="singleuser-server"}
+        * on(pod, namespace) kube_pod_labels{app="jupyterhub", component="singleuser-server"}
       )
     |||,
     legendFormat='Users'

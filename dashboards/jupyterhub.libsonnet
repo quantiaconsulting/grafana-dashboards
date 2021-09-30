@@ -20,7 +20,7 @@ local prometheus = grafana.prometheus;
    */
   componentLabel(component, cmp='=', namespace='$hub')::
     std.format(
-      'kube_pod_labels{label_app="jupyterhub", label_component%s"%s" %s}',
+      'kube_pod_labels{app="jupyterhub", component%s"%s" %s}',
       [
         cmp,
         component,
@@ -94,14 +94,14 @@ local prometheus = grafana.prometheus;
           sum(
             %s
             %s
-          ) by (label_component)
+          ) by (component)
         |||,
         [
           metric,
-          self.onComponentLabel(component, cmp=if multi then '!=' else '=', group_left='container, label_component'),
+          self.onComponentLabel(component, cmp=if multi then '!=' else '=', group_left='container, component'),
         ],
       ),
-      legendFormat=if multi then '{{ label_component }}' else title,
+      legendFormat=if multi then '{{ component }}' else title,
     ),
   ],),
 
